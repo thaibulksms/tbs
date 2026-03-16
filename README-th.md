@@ -170,9 +170,19 @@ tbs credit --profile production
 | `request_email_otp` | ส่งรหัส OTP ทางอีเมล |
 | `verify_email_otp` | ยืนยัน Email OTP |
 
-## Credentials
+## Credentials และการตั้งค่า
 
-รับ credentials ที่ [developer.thaibulksms.com](https://developer.thaibulksms.com) > ตั้งค่า > API Key
+### API Keys
+
+| รายการ | ตั้งค่าที่ |
+|--------|----------|
+| SMS/Email API Key & Secret | [Dashboard > Developer Settings](https://dashboard.thaibulksms.com/developer-settings/) |
+| SMS OTP Key & Secret | [OTP Manager](https://otp-manager.thaibulksms.com/otp) |
+| ชื่อผู้ส่ง SMS (Sender Name) | [Dashboard > Sender Name](https://dashboard.thaibulksms.com/sender-name/) (ต้องลงทะเบียนก่อนใช้งาน) |
+| Email Template | [Dashboard > Email Templates](https://dashboard.thaibulksms.com/email-template-management/) (สร้างและคัดลอก template UUID) |
+| Email OTP Template | [Dashboard > Email OTP](https://dashboard.thaibulksms.com/email-otp/create/) (สร้างและคัดลอก template UUID) |
+
+### ตัวแปร Environment
 
 | ตัวแปร | สำหรับ | จำเป็น |
 |--------|-------|:------:|

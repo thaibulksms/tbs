@@ -170,9 +170,19 @@ tbs credit --profile production
 | `request_email_otp` | Send OTP code via email |
 | `verify_email_otp` | Verify email OTP code |
 
-## Credentials
+## Credentials & Setup
 
-Get from [developer.thaibulksms.com](https://developer.thaibulksms.com) > Settings > API Key.
+### API Keys
+
+| What | Where to get it |
+|------|----------------|
+| SMS/Email API Key & Secret | [Dashboard > Developer Settings](https://dashboard.thaibulksms.com/developer-settings/) |
+| SMS OTP Key & Secret | [OTP Manager](https://otp-manager.thaibulksms.com/otp) |
+| SMS Sender Name | [Dashboard > Sender Name](https://dashboard.thaibulksms.com/sender-name/) (must register before use) |
+| Email Template | [Dashboard > Email Templates](https://dashboard.thaibulksms.com/email-template-management/) (create and copy template UUID) |
+| Email OTP Template | [Dashboard > Email OTP](https://dashboard.thaibulksms.com/email-otp/create/) (create and copy template UUID) |
+
+### Environment Variables
 
 | Variable | For | Required |
 |----------|-----|:--------:|

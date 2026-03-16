@@ -4,10 +4,17 @@
 
 ## 1. Get API Credentials
 
-1. Go to [developer.thaibulksms.com](https://developer.thaibulksms.com)
-2. Sign up or log in
-3. **Settings > API Key** — copy API Key and Secret
-4. **Settings > OTP** — copy OTP Key and Secret (for SMS OTP only)
+1. Sign up at [thaibulksms.com](https://www.thaibulksms.com)
+2. Get **SMS/Email API Key & Secret** at [Dashboard > Developer Settings](https://dashboard.thaibulksms.com/developer-settings/)
+3. Get **SMS OTP Key & Secret** at [OTP Manager](https://otp-manager.thaibulksms.com/otp) (optional, for SMS OTP only)
+
+### Additional setup (as needed)
+
+| What | Where |
+|------|-------|
+| Register SMS Sender Name | [Dashboard > Sender Name](https://dashboard.thaibulksms.com/sender-name/) |
+| Create Email Template | [Dashboard > Email Templates](https://dashboard.thaibulksms.com/email-template-management/) |
+| Create Email OTP Template | [Dashboard > Email OTP](https://dashboard.thaibulksms.com/email-otp/create/) |
 
 ## 2. Install & Login
 
