@@ -92,6 +92,10 @@ gemini mcp add thaibulksms -- npx -y @thaibulksms/tbs
 }
 ```
 
+### OpenClaw
+
+OpenClaw อ่านไฟล์ `.mcp.json` (รูปแบบเดียวกับ Claude Code) วางไฟล์ `.mcp.json` ที่ root ของโปรเจกต์ — OpenClaw จะตรวจพบโดยอัตโนมัติ
+
 ### Claude Desktop
 
 Config: `~/Library/Application Support/Claude/claude_desktop_config.json` (macOS), `%APPDATA%\Claude\` (Windows), `~/.config/Claude/` (Linux)

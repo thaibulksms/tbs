@@ -128,6 +128,10 @@ Add to `opencode.json`:
 }
 ```
 
+### OpenClaw
+
+OpenClaw reads `.mcp.json` (same format as Claude Code). Drop the file in your project root — OpenClaw picks it up automatically via its bundle system.
+
 ## 5. Verify
 
 CLI: `tbs credit`
@@ -149,6 +153,7 @@ AI Agent: "Check my SMS credit balance"
 | Claude Desktop | literal | `claude_desktop_config.json` |
 | Gemini CLI | `$VAR` | `~/.gemini/settings.json` |
 | OpenCode | `{env:VAR}` | `opencode.json` |
+| OpenClaw | `${VAR}` | `.mcp.json` (same as Claude Code) |
 
 ## Troubleshooting
 

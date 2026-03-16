@@ -128,6 +128,10 @@ gemini mcp add thaibulksms -- npx -y @thaibulksms/tbs
 }
 ```
 
+### OpenClaw
+
+OpenClaw อ่านไฟล์ `.mcp.json` (รูปแบบเดียวกับ Claude Code) วางไฟล์ที่ root ของโปรเจกต์ — OpenClaw จะตรวจพบโดยอัตโนมัติผ่านระบบ bundle
+
 ## 5. ทดสอบ
 
 CLI: `tbs credit`
@@ -162,6 +166,7 @@ AI Agent: พิมพ์ "ตรวจสอบเครดิต SMS ของ
 | Claude Desktop | ค่าจริง | `claude_desktop_config.json` |
 | Gemini CLI | `$VAR` | `~/.gemini/settings.json` |
 | OpenCode | `{env:VAR}` | `opencode.json` |
+| OpenClaw | `${VAR}` | `.mcp.json` (เหมือน Claude Code) |
 
 ## แก้ปัญหา
 

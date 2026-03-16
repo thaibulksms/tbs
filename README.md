@@ -92,6 +92,10 @@ gemini mcp add thaibulksms -- npx -y @thaibulksms/tbs
 }
 ```
 
+### OpenClaw
+
+OpenClaw reads `.mcp.json` (same as Claude Code). Drop the `.mcp.json` file in your project root — OpenClaw picks it up automatically.
+
 ### Claude Desktop
 
 Config: `~/Library/Application Support/Claude/claude_desktop_config.json` (macOS)
