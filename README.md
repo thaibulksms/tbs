@@ -7,7 +7,7 @@ Zero-dependency MCP & CLI for [ThaiBulkSMS](https://www.thaibulksms.com) and [Th
 [![Node.js](https://img.shields.io/badge/Node.js-18%2B-green.svg)](https://nodejs.org/)
 [![Bun](https://img.shields.io/badge/Bun-1.3%2B-orange.svg)](https://bun.sh/)
 
-> [คู่มือภาษาไทย / Thai Guide](docs/setup-th.md)
+> [README ภาษาไทย](README-th.md) | [คู่มือติดตั้ง (Thai)](docs/setup-th.md)
 
 ## Install
 
@@ -40,12 +40,12 @@ npx @thaibulksms/tbs send 0812345678 "Hello"
 ### Claude Code
 
 ```bash
-claude mcp add \
+claude mcp add thaibulksms \
   -e THAIBULKSMS_API_KEY=xxx \
   -e THAIBULKSMS_API_SECRET=xxx \
   -e THAIBULKSMS_OTP_KEY=xxx \
   -e THAIBULKSMS_OTP_SECRET=xxx \
-  thaibulksms -- npx -y @thaibulksms/tbs
+  -- npx -y @thaibulksms/tbs
 ```
 
 Or `.mcp.json` (project-scoped, commit to git):

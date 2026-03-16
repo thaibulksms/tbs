@@ -47,12 +47,12 @@ All commands support `--json` and `--profile <name>`.
 ### Claude Code
 
 ```bash
-claude mcp add \
+claude mcp add thaibulksms \
   -e THAIBULKSMS_API_KEY=xxx \
   -e THAIBULKSMS_API_SECRET=xxx \
   -e THAIBULKSMS_OTP_KEY=xxx \
   -e THAIBULKSMS_OTP_SECRET=xxx \
-  thaibulksms -- npx -y @thaibulksms/tbs
+  -- npx -y @thaibulksms/tbs
 ```
 
 Or `.mcp.json` (project-scoped, commit to git):
