@@ -1,0 +1,14 @@
+{
+  "mcpServers": {
+    "thaibulksms": {
+      "command": "npx",
+      "args": ["-y", "@thaibulksms/tbs"],
+      "env": {
+        "THAIBULKSMS_API_KEY": "${THAIBULKSMS_API_KEY}",
+        "THAIBULKSMS_API_SECRET": "${THAIBULKSMS_API_SECRET}",
+        "THAIBULKSMS_OTP_KEY": "${THAIBULKSMS_OTP_KEY}",
+        "THAIBULKSMS_OTP_SECRET": "${THAIBULKSMS_OTP_SECRET}"
+      }
+    }
+  }
+}

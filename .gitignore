@@ -1,0 +1,9 @@
+node_modules/
+dist/
+.env
+*.tgz
+package-lock.json
+CLAUDE.md
+docs/plan.md
+docs/plan-cli.md
+docs/research/

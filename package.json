@@ -1,0 +1,50 @@
+{
+  "name": "@thaibulksms/tbs",
+  "version": "0.1.0",
+  "description": "Zero-dependency MCP server & CLI for ThaiBulkSMS and ThaiBulkMail APIs",
+  "type": "module",
+  "main": "dist/index.js",
+  "bin": {
+    "tbs": "dist/index.js"
+  },
+  "files": [
+    "dist"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/thaibulksms/tbs.git"
+  },
+  "homepage": "https://github.com/thaibulksms/tbs",
+  "bugs": {
+    "url": "https://github.com/thaibulksms/tbs/issues"
+  },
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsx src/index.ts",
+    "test": "tsx --test tests/*.test.ts",
+    "test:bun": "bun test tests/validators.test.ts tests/client.test.ts tests/server.test.ts tests/transport.test.ts tests/cli.test.ts tests/profile.test.ts",
+    "test:all": "npm test && npm run test:bun",
+    "prepublishOnly": "npm run build"
+  },
+  "keywords": [
+    "mcp",
+    "sms",
+    "email",
+    "otp",
+    "thaibulksms",
+    "thaibulkmail",
+    "model-context-protocol",
+    "cli",
+    "thailand"
+  ],
+  "license": "MIT",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "tsx": "^4.0.0",
+    "typescript": "^5.8.0"
+  }
+}
