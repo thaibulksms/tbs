@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>@thaibulksms/tbs — MCP & CLI for Thai SMS and Email</title>
+<meta name="description" content="Zero-dependency MCP server & CLI for ThaiBulkSMS and ThaiBulkMail APIs. Works with Claude Code, Gemini CLI, OpenCode, OpenClaw.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0a0a0f;
+  --surface: #12121a;
+  --border: #1e1e2e;
+  --text: #e0e0e8;
+  --text-dim: #6e6e82;
+  --gold: #e8a835;
+  --gold-dim: #b8862a;
+  --green: #4ade80;
+  --blue: #60a5fa;
+  --mono: 'JetBrains Mono', monospace;
+  --sans: 'DM Sans', sans-serif;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--sans);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 999;
+}
+a { color: var(--gold); text-decoration: none; }
+a:hover { text-decoration: underline; }
+.container { max-width: 900px; margin: 0 auto; padding: 0 24px; }
+
+nav { padding: 20px 0; border-bottom: 1px solid var(--border); }
+nav .container { display: flex; justify-content: space-between; align-items: center; }
+nav .logo { font-family: var(--mono); font-weight: 700; font-size: 1rem; color: var(--gold); }
+nav .links { display: flex; gap: 24px; font-size: 0.85rem; }
+nav .links a { color: var(--text-dim); }
+nav .links a:hover { color: var(--text); text-decoration: none; }
+
+.hero { padding: 80px 0 60px; text-align: center; }
+.hero h1 { font-family: var(--mono); font-size: clamp(1.5rem, 4vw, 2.4rem); font-weight: 700; margin-bottom: 16px; letter-spacing: -0.02em; }
+.hero h1 .accent { color: var(--gold); }
+.hero p { color: var(--text-dim); font-size: 1.1rem; max-width: 560px; margin: 0 auto 32px; }
+.badges { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; margin-bottom: 40px; }
+.badge { display: inline-block; font-family: var(--mono); font-size: 0.7rem; padding: 4px 10px; border: 1px solid var(--border); border-radius: 4px; color: var(--text-dim); }
+.badge.gold { border-color: var(--gold-dim); color: var(--gold); }
+
+.terminal { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; text-align: left; margin: 0 auto 60px; max-width: 680px; animation: fadeUp 0.6s ease-out; }
+.terminal-bar { display: flex; align-items: center; gap: 6px; padding: 10px 14px; border-bottom: 1px solid var(--border); background: #0e0e16; }
+.terminal-dot { width: 10px; height: 10px; border-radius: 50%; }
+.terminal-dot.r { background: #ff5f57; }
+.terminal-dot.y { background: #febc2e; }
+.terminal-dot.g { background: #28c840; }
+.terminal-bar .title { font-family: var(--mono); font-size: 0.7rem; color: var(--text-dim); margin-left: 8px; }
+.terminal-body { padding: 16px 20px; font-family: var(--mono); font-size: 0.8rem; line-height: 1.8; min-height: 200px; }
+.t-prompt { color: var(--green); }
+.t-cmd { color: var(--text); }
+.t-flag { color: var(--blue); }
+.t-str { color: var(--gold); }
+.t-out { color: var(--text-dim); }
+.t-ok { color: var(--green); }
+.line { opacity: 0; animation: typeLine 0.3s ease-out forwards; }
+
+.install { text-align: center; margin-bottom: 60px; }
+.install-box { display: inline-flex; align-items: center; gap: 12px; background: var(--surface); border: 1px solid var(--border); border-radius: 6px; padding: 12px 20px; font-family: var(--mono); font-size: 0.9rem; cursor: pointer; transition: border-color 0.2s; }
+.install-box:hover { border-color: var(--gold-dim); }
+.install-box .dollar { color: var(--text-dim); }
+.install-box .copy { color: var(--text-dim); font-size: 0.75rem; padding: 2px 8px; border: 1px solid var(--border); border-radius: 3px; transition: all 0.2s; }
+.install-box:hover .copy { color: var(--gold); border-color: var(--gold-dim); }
+
+section { padding: 40px 0; }
+section h2 { font-family: var(--mono); font-size: 1rem; font-weight: 700; color: var(--gold); margin-bottom: 24px; text-transform: uppercase; letter-spacing: 0.1em; }
+
+.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 16px; }
+.card { background: var(--surface); border: 1px solid var(--border); border-radius: 6px; padding: 20px; transition: border-color 0.2s; }
+.card:hover { border-color: var(--gold-dim); }
+.card h3 { font-family: var(--mono); font-size: 0.85rem; margin-bottom: 6px; }
+.card p { color: var(--text-dim); font-size: 0.8rem; }
+
+.tools-table { width: 100%; border-collapse: collapse; font-size: 0.8rem; }
+.tools-table th { text-align: left; font-family: var(--mono); color: var(--text-dim); font-weight: 500; padding: 8px 0; border-bottom: 1px solid var(--border); }
+.tools-table td { padding: 8px 0; border-bottom: 1px solid var(--border); }
+.tools-table td:first-child { font-family: var(--mono); color: var(--gold); }
+
+.agent-block { background: var(--surface); border: 1px solid var(--border); border-radius: 6px; margin-bottom: 12px; overflow: hidden; }
+.agent-block summary { padding: 14px 20px; font-family: var(--mono); font-size: 0.85rem; cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center; }
+.agent-block summary::-webkit-details-marker { display: none; }
+.agent-block summary::after { content: '+'; color: var(--text-dim); font-size: 1.2rem; transition: transform 0.2s; }
+.agent-block[open] summary::after { transform: rotate(45deg); }
+.agent-block pre { padding: 0 20px 16px; font-family: var(--mono); font-size: 0.75rem; color: var(--text); overflow-x: auto; line-height: 1.7; white-space: pre; }
+
+footer { padding: 40px 0; border-top: 1px solid var(--border); text-align: center; color: var(--text-dim); font-size: 0.8rem; }
+footer .links { display: flex; justify-content: center; gap: 24px; margin-bottom: 12px; }
+
+@keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes typeLine { from { opacity: 0; transform: translateX(-4px); } to { opacity: 1; transform: translateX(0); } }
+@media (max-width: 600px) { .hero { padding: 50px 0 40px; } .terminal-body { font-size: 0.7rem; } }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="container">
+    <div class="logo">@thaibulksms/tbs</div>
+    <div class="links">
+      <a href="https://github.com/thaibulksms/tbs">GitHub</a>
+      <a href="https://www.npmjs.com/package/@thaibulksms/tbs">npm</a>
+      <a href="https://developer.thaibulksms.com">API Docs</a>
+    </div>
+  </div>
+</nav>
+
+<div class="container">
+
+  <section class="hero">
+    <h1><span class="accent">SMS &amp; Email</span> from your terminal<br>and AI agents</h1>
+    <p>Zero-dependency MCP server &amp; CLI for ThaiBulkSMS and ThaiBulkMail. Works with Claude Code, Gemini CLI, OpenCode, and OpenClaw.</p>
+    <div class="badges">
+      <span class="badge gold">0 dependencies</span>
+      <span class="badge">Node.js 18+</span>
+      <span class="badge">Bun 1.3+</span>
+      <span class="badge">8 MCP tools</span>
+      <span class="badge">MIT</span>
+    </div>
+
+    <div class="terminal">
+      <div class="terminal-bar">
+        <div class="terminal-dot r"></div>
+        <div class="terminal-dot y"></div>
+        <div class="terminal-dot g"></div>
+        <span class="title">terminal</span>
+      </div>
+      <div class="terminal-body" id="term"></div>
+    </div>
+  </section>
+
+  <section class="install">
+    <div class="install-box" id="installBox" title="Click to copy">
+      <span class="dollar">$</span>
+      <span>npm install -g @thaibulksms/tbs</span>
+      <span class="copy" id="copyLabel">copy</span>
+    </div>
+  </section>
+
+  <section>
+    <h2>CLI Commands</h2>
+    <div class="grid">
+      <div class="card"><h3>tbs login</h3><p>Save API credentials to ~/.config/tbs/ with profile support</p></div>
+      <div class="card"><h3>tbs send &lt;to&gt; &lt;msg&gt;</h3><p>Send SMS to Thai mobile number with custom sender ID</p></div>
+      <div class="card"><h3>tbs email &lt;to&gt; &lt;subj&gt;</h3><p>Send email via ThaiBulkMail template</p></div>
+      <div class="card"><h3>tbs credit</h3><p>Check SMS and email credit balance</p></div>
+      <div class="card"><h3>tbs otp &lt;to&gt;</h3><p>Request OTP via SMS, returns verification token</p></div>
+      <div class="card"><h3>tbs email-otp &lt;to&gt;</h3><p>Request OTP via email template</p></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>MCP Tools</h2>
+    <table class="tools-table">
+      <thead><tr><th>Tool</th><th>Description</th></tr></thead>
+      <tbody>
+        <tr><td>send_sms</td><td>Send SMS to one Thai mobile number</td></tr>
+        <tr><td>send_email</td><td>Send email via ThaiBulkMail template</td></tr>
+        <tr><td>check_sms_credit</td><td>Check SMS credit balance</td></tr>
+        <tr><td>check_email_credit</td><td>Check email credit balance</td></tr>
+        <tr><td>request_otp</td><td>Send OTP PIN via SMS</td></tr>
+        <tr><td>verify_otp</td><td>Verify SMS OTP PIN</td></tr>
+        <tr><td>request_email_otp</td><td>Send OTP code via email</td></tr>
+        <tr><td>verify_email_otp</td><td>Verify email OTP code</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2>Add to AI Agent</h2>
+    <details class="agent-block"><summary>Claude Code</summary><pre>claude mcp add thaibulksms \
+  -e THAIBULKSMS_API_KEY=xxx \
+  -e THAIBULKSMS_API_SECRET=xxx \
+  -e THAIBULKSMS_OTP_KEY=xxx \
+  -e THAIBULKSMS_OTP_SECRET=xxx \
+  -- npx -y @thaibulksms/tbs</pre></details>
+    <details class="agent-block"><summary>Gemini CLI</summary><pre>gemini mcp add thaibulksms -- npx -y @thaibulksms/tbs</pre></details>
+    <details class="agent-block"><summary>OpenCode (opencode.json)</summary><pre>{
+  "mcp": {
+    "thaibulksms": {
+      "type": "local",
+      "command": ["npx", "-y", "@thaibulksms/tbs"],
+      "environment": {
+        "THAIBULKSMS_API_KEY": "{env:THAIBULKSMS_API_KEY}",
+        "THAIBULKSMS_API_SECRET": "{env:THAIBULKSMS_API_SECRET}"
+      },
+      "enabled": true
+    }
+  }
+}</pre></details>
+    <details class="agent-block"><summary>OpenClaw</summary><pre>Uses .mcp.json (same as Claude Code) — drop in project root.</pre></details>
+    <details class="agent-block"><summary>Claude Desktop</summary><pre>{
+  "mcpServers": {
+    "thaibulksms": {
+      "command": "npx",
+      "args": ["-y", "@thaibulksms/tbs"],
+      "env": {
+        "THAIBULKSMS_API_KEY": "your_key",
+        "THAIBULKSMS_API_SECRET": "your_secret"
+      }
+    }
+  }
+}</pre></details>
+  </section>
+
+  <section>
+    <h2>Setup</h2>
+    <div class="grid">
+      <div class="card"><h3>API Key &amp; Secret</h3><p><a href="https://dashboard.thaibulksms.com/developer-settings/">Dashboard &rarr; Developer Settings</a></p></div>
+      <div class="card"><h3>SMS OTP Key</h3><p><a href="https://otp-manager.thaibulksms.com/otp">OTP Manager</a></p></div>
+      <div class="card"><h3>SMS Sender Name</h3><p><a href="https://dashboard.thaibulksms.com/sender-name/">Dashboard &rarr; Sender Name</a></p></div>
+      <div class="card"><h3>Email Template</h3><p><a href="https://dashboard.thaibulksms.com/email-template-management/">Dashboard &rarr; Email Templates</a></p></div>
+      <div class="card"><h3>Email OTP Template</h3><p><a href="https://dashboard.thaibulksms.com/email-otp/create/">Dashboard &rarr; Email OTP</a></p></div>
+      <div class="card"><h3>Full Guide</h3><p><a href="https://github.com/thaibulksms/tbs/blob/master/docs/setup.md">English</a> &middot; <a href="https://github.com/thaibulksms/tbs/blob/master/docs/setup-th.md">ภาษาไทย</a></p></div>
+    </div>
+  </section>
+
+</div>
+
+<footer>
+  <div class="container">
+    <div class="links">
+      <a href="https://github.com/thaibulksms/tbs">GitHub</a>
+      <a href="https://www.npmjs.com/package/@thaibulksms/tbs">npm</a>
+      <a href="https://developer.thaibulksms.com">API Docs</a>
+      <a href="https://www.thaibulksms.com">ThaiBulkSMS</a>
+      <a href="https://www.thaibulkmail.com">ThaiBulkMail</a>
+    </div>
+    <p>MIT License &middot; Zero dependencies &middot; Made for developers</p>
+  </div>
+</footer>
+
+<script>
+// Terminal animation — builds DOM safely (no innerHTML)
+const termData = [
+  { type: 'cmd', prompt: '$ ', text: 'tbs login' },
+  { type: 'out', text: 'API Key: \u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022' },
+  { type: 'out', text: 'API Secret: \u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022' },
+  { type: 'out', text: '' },
+  { type: 'ok', text: '\u2713 Verified \u2014 SMS: 99 standard, 88 corporate' },
+  { type: 'out', text: 'Profile "default" saved' },
+  { type: 'out', text: '' },
+  { type: 'cmd', prompt: '$ ', text: 'tbs send 0812345678 "Hello from tbs"' },
+  { type: 'ok', text: 'Sent! ID: pGwSP1FjDFNzUheO' },
+  { type: 'out', text: 'Credit used: 1 (corporate)' },
+  { type: 'out', text: '' },
+  { type: 'cmd', prompt: '$ ', text: 'tbs credit --json' },
+  { type: 'out', text: '{"sms":{"standard":99,"corporate":87},"email":993}' },
+];
+
+const term = document.getElementById('term');
+let delay = 300;
+termData.forEach(function(l) {
+  const div = document.createElement('div');
+  div.className = 'line';
+  div.style.animationDelay = delay + 'ms';
+  if (l.type === 'cmd') {
+    const promptSpan = document.createElement('span');
+    promptSpan.className = 't-prompt';
+    promptSpan.textContent = l.prompt;
+    const cmdSpan = document.createElement('span');
+    cmdSpan.className = 't-cmd';
+    cmdSpan.textContent = l.text;
+    div.appendChild(promptSpan);
+    div.appendChild(cmdSpan);
+    delay += 600;
+  } else if (l.type === 'ok') {
+    const span = document.createElement('span');
+    span.className = 't-ok';
+    span.textContent = l.text;
+    div.appendChild(span);
+    delay += 200;
+  } else {
+    const span = document.createElement('span');
+    span.className = 't-out';
+    span.textContent = l.text;
+    div.appendChild(span);
+    delay += 200;
+  }
+  term.appendChild(div);
+});
+
+// Copy install command
+document.getElementById('installBox').addEventListener('click', function() {
+  navigator.clipboard.writeText('npm install -g @thaibulksms/tbs');
+  var label = document.getElementById('copyLabel');
+  label.textContent = 'copied!';
+  label.style.color = 'var(--green)';
+  label.style.borderColor = 'var(--green)';
+  setTimeout(function() { label.textContent = 'copy'; label.style.color = ''; label.style.borderColor = ''; }, 2000);
+});
+</script>
+
+</body>
+</html>
